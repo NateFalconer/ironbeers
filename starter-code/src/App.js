@@ -14,12 +14,10 @@ class App extends Component {
     allBeers: [],
     ready: false
   }
-
-getRandomBeer = () => {
-  let newRandomBeer = this.state.allBeers[Math.floor(Math.random()*this.state.allBeers.length)]
-  return newRandomBeer
-}
-
+  getRandomBeer = () => {
+    let newRandomBeer = this.state.allBeers[Math.floor(Math.random()*this.state.allBeers.length)]
+    return newRandomBeer
+  }
 
   render() {
     return (
@@ -31,6 +29,7 @@ getRandomBeer = () => {
           <Route exact path="/beers/" render={props => <Beers {...props}/>} allBeers={this.state.allBeers} ready={this.state.ready} />
           <Route exact path="/random-beer/" render={props => <RandomBeer {...props}/>} />
           <Route exact path="/new-beer/" render={props => <NewBeer {...props}/>} />
+          <Route exact path="/beers/:beerID" render={(props) => <Beers {...props} beersProp={this.state.allBeers} />} />
         </Switch>
 
       </div>
