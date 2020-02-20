@@ -1,21 +1,41 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios'
+import HomePage from './HomePage'
+import {Switch, Route, Link} from 'react-router-dom'
+import RandomBeer from './RandomBeer'
+import NewBeer from './NewBeer'
+import Beers from './Beers'
+
 
 class App extends Component {
+
+  state = {
+    allBeers: [],
+    ready: false
+  }
+
+getRandomBeer = () => {
+  let newRandomBeer = this.state.allBeers[Math.floor(Math.random()*this.state.allBeers.length)]
+  return newRandomBeer
+}
+
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+
+        <Switch>
+          <Route exact path="/" render={props => 
+            <HomePage{...props} />} />
+          <Route exact path="/beers/" render={props => <Beers {...props}/>} allBeers={this.state.allBeers} ready={this.state.ready} />
+          <Route exact path="/random-beer/" render={props => <RandomBeer {...props}/>} />
+          <Route exact path="/new-beer/" render={props => <NewBeer {...props}/>} />
+        </Switch>
+
       </div>
     );
   }
-}
+  }
 
 export default App;
